@@ -6,7 +6,6 @@ font:
   - file: "gfonts://Open Sans"
     id: font_small
     size: 12
-
   - file: "gfonts://Open Sans"
     id: font_big
     size: 20
@@ -17,7 +16,7 @@ globals:
     initial_value: '0'
 
 interval:
-  - interval: 7s
+  - interval: 3s
     then:
       - lambda: |-
           id(oled_page) = (id(oled_page) + 1) % 2;
@@ -35,52 +34,48 @@ sensor:
     compressor_frequency:
       id: compressor_freq
 
-    flow_rate:
+    primary_flow_rate:
       id: flow_rate
 
-    z1_flow_temp_target:
-      id: setpoint
+    zone1_flow_temperature:
+      id: flow_temp
 
-    z1_return_temp:
+    zone1_return_temperature:
       id: return_temp
 
-    outside_temp:
+    zone1_flow_temperature_setpoint:
+      id: setpoint
+
+    outside_temperature:
       id: outdoor_temp
-      
+
 display:
   - platform: ssd1306_i2c
     model: "SSD1306 128x64"
     address: 0x3C
-    update_interval: 7s
+    update_interval: 1s
 
     lambda: |-
       if (id(oled_page) == 0) {
-
-        it.printf(0, 0, id(font_small),
-          "^%.1f v%.1f %.0fHz",
+        it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
           id(hot_water_temp).state,
           id(hot_water_temp_thw5a).state,
           id(compressor_freq).state
         );
 
-        it.printf(0, 14, id(font_small),
-          "Flow %.0f  T %.0f",
+        it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
           id(flow_rate).state,
           id(flow_temp).state
         );
 
-        it.printf(0, 28, id(font_small),
-          "Ret %.0f  SP %.0f",
+        it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
           id(return_temp).state,
           id(setpoint).state
         );
 
       } else {
-
-        it.printf(0, 0, id(font_big), "Valjas:");
-
-        it.printf(0, 32, id(font_big),
-          "%.0f C",
+        it.printf(0, 10, id(font_big), "Valjas:");
+        it.printf(0, 35, id(font_big), "%.0f C",
           id(outdoor_temp).state
         );
       }
