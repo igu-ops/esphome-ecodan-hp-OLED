@@ -25,28 +25,28 @@ sensor:
   - platform: ecodan
     ecodan_id: ecodan_instance
 
-    hot_water_temperature:
+    dhw_temp:
       id: hot_water_temp
 
-    hot_water_temperature_thw5a:
+    dhw_secondary_temp:
       id: hot_water_temp_thw5a
 
     compressor_frequency:
       id: compressor_freq
 
-    primary_flow_rate:
+    flow_rate:
       id: flow_rate
 
-    zone1_flow_temperature:
+    z1_feed_temp:
       id: flow_temp
 
-    zone1_return_temperature:
+    z1_return_temp:
       id: return_temp
 
-    zone1_flow_temperature_setpoint:
+    z1_flow_temp_target:
       id: setpoint
 
-    outside_temperature:
+    outside_temp:
       id: outdoor_temp
 
 display:
