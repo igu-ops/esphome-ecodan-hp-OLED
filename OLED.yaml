@@ -2,7 +2,7 @@ i2c:
   sda: 39
   scl: 38
   scan: true
-
+  frequency: 100kHz
 font:
   - file: "gfonts://Open Sans"
     id: font_small
