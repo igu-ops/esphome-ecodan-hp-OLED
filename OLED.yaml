@@ -28,35 +28,39 @@ display:
     id: oled_display                    # required for manual update
     model: "SSD1306 128x64"
     address: 0x3C
-    update_interval: never
+    update_interval: 5s
     auto_clear_enabled: false          # prevent flicker
 
-    lambda: |-
-      it.clear();  // manual clear once per redraw
+it.clear();
 
-      if (id(oled_page) == 0) {
+if (!id(dhw_temp).has_state()) {
+  it.printf(0, 0, id(font_small), "Waiting for data...");
+  return;
+}
 
-        it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
-          id(dhw_temp).state,
-          id(dhw_secondary_temp).state,
-          id(compressor_frequency).state
-        );
+if (id(oled_page) == 0) {
 
-        it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
-          id(flow_rate).state,
-          id(z1_feed_temp).state
-        );
+  it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
+    id(dhw_temp).state,
+    id(dhw_secondary_temp).state,
+    id(compressor_frequency).state
+  );
 
-        it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
-          id(z1_return_temp).state,
-          id(z1_flow_temp_target).state
-        );
+  it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
+    id(flow_rate).state,
+    id(z1_feed_temp).state
+  );
 
-      } else {
+  it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
+    id(z1_return_temp).state,
+    id(z1_flow_temp_target).state
+  );
 
-        it.printf(0, 10, id(font_big), "Väljas:");
-        it.printf(0, 35, id(font_big), "%.0f°C",
-          id(outside_temp).state
-        );
+} else {
 
-      }
+  it.printf(0, 10, id(font_big), "Valjas:");
+  it.printf(0, 35, id(font_big), "%.0fC",
+    id(outside_temp).state
+  );
+
+}
