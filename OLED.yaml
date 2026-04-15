@@ -16,19 +16,25 @@ globals:
     initial_value: '0'
 
 interval:
-  - interval: 3s
+  - interval: 5s
     then:
       - lambda: |-
           id(oled_page) = (id(oled_page) + 1) % 2;
+      - component.update: oled_display   # redraw only when page changes
 
 display:
   - platform: ssd1306_i2c
+    id: oled_display                    # required for manual update
     model: "SSD1306 128x64"
     address: 0x3C
-    update_interval: 1s
+    update_interval: never
+    auto_clear_enabled: false          # prevent flicker
 
     lambda: |-
+      it.clear();  // manual clear once per redraw
+
       if (id(oled_page) == 0) {
+
         it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
           id(dhw_temp).state,
           id(dhw_secondary_temp).state,
@@ -46,8 +52,10 @@ display:
         );
 
       } else {
+
         it.printf(0, 10, id(font_big), "Väljas:");
-        it.printf(0, 35, id(font_big), "%.0f C",
+        it.printf(0, 35, id(font_big), "%.0f°C",
           id(outside_temp).state
         );
+
       }
