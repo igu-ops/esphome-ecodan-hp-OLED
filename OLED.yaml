@@ -1,6 +1,6 @@
 i2c:
-  sda: GPIO39
-  scl: GPIO38
+  sda: 39
+  scl: 38
   scan: true
 
 font:
