@@ -17,7 +17,7 @@ VCC → Power<br>
 GND → Ground
 </p>
 
-<p><strong>Use at your own risk!</strong></p>
+<p><strong>Made with AI, use at your own risk!</strong></p>
 
 <hr>
 
