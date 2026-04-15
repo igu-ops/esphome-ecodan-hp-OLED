@@ -38,10 +38,10 @@ sensor:
     flow_rate:
       id: flow_rate
 
-    boiler_flow_temp:
+    z1_flow_temp_target:
       id: flow_temp
 
-    boiler_return_temp:
+    z1_return_temp:
       id: return_temp
 
     z1_flow_temp_target:
