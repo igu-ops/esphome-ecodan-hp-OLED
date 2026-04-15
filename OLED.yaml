@@ -21,34 +21,6 @@ interval:
       - lambda: |-
           id(oled_page) = (id(oled_page) + 1) % 2;
 
-sensor:
-  - platform: ecodan
-    ecodan_id: ecodan_instance
-
-    dhw_temp:
-      id: hot_water_temp
-
-    dhw_secondary_temp:
-      id: hot_water_temp_thw5a
-
-    compressor_frequency:
-      id: compressor_freq
-
-    flow_rate:
-      id: flow_rate
-
-    z1_feed_temp:
-      id: flow_temp
-
-    z1_return_temp:
-      id: return_temp
-
-    z1_flow_temp_target:
-      id: setpoint
-
-    outside_temp:
-      id: outdoor_temp
-
 display:
   - platform: ssd1306_i2c
     model: "SSD1306 128x64"
@@ -58,24 +30,24 @@ display:
     lambda: |-
       if (id(oled_page) == 0) {
         it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
-          id(hot_water_temp).state,
-          id(hot_water_temp_thw5a).state,
-          id(compressor_freq).state
+          id(dhw_temp).state,
+          id(dhw_secondary_temp).state,
+          id(compressor_frequency).state
         );
 
         it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
           id(flow_rate).state,
-          id(flow_temp).state
+          id(z1_feed_temp).state
         );
 
         it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
-          id(return_temp).state,
-          id(setpoint).state
+          id(z1_return_temp).state,
+          id(z1_flow_temp_target).state
         );
 
       } else {
-        it.printf(0, 10, id(font_big), "Valjas:");
+        it.printf(0, 10, id(font_big), "Väljas:");
         it.printf(0, 35, id(font_big), "%.0f C",
-          id(outdoor_temp).state
+          id(outside_temp).state
         );
       }
