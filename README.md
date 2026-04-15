@@ -1,11 +1,36 @@
-Testing to add OLED ssd1306 ATOM S3Lite to https://github.com/gekkekoe/esphome-ecodan-hp<br/>
-Straight plugin via I2C G39/G38/VCC/GND and display sensor values  
-Use at your own risk<br/>
-just add this to<br/>
-packages:<br/>
-  remote_package:<br/>
-    oled:<br/>
-    url: https://github.com/igu-ops/esphome-ecodan-hp-OLED/<br/>
-    ref: main<br/>
-    files:<br/>
-      - OLED.yaml
+<h2>OLED SSD1306 Support for ATOM S3 Lite</h2>
+
+<p>
+Testing integration of an OLED SSD1306 display with the ATOM S3 Lite for:<br>
+<a href="https://github.com/gekkekoe/esphome-ecodan-hp">
+https://github.com/gekkekoe/esphome-ecodan-hp
+</a>
+</p>
+
+<h3>Setup</h3>
+
+<p>
+Connect the OLED via I2C:<br>
+G39 → SDA<br>
+G38 → SCL<br>
+VCC → Power<br>
+GND → Ground
+</p>
+
+<p><strong>Use at your own risk!</strong></p>
+
+<hr>
+
+<h3>Configuration</h3>
+
+<p>Add the following to your ESPHome configuration:</p>
+
+<pre>
+packages:
+  remote_package:
+    oled:
+      url: https://github.com/igu-ops/esphome-ecodan-hp-OLED/
+      ref: main
+      files:
+        - OLED.yaml
+</pre>
