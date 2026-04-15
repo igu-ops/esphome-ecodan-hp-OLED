@@ -1,6 +1,6 @@
 i2c:
-  sda: GPIO38
-  scl: GPIO39
+  sda: GPIO39
+  scl: GPIO38
 
 font:
   - file: "gfonts://Open Sans"
