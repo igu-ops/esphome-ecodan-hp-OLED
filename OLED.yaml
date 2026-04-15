@@ -6,6 +6,7 @@ font:
   - file: "gfonts://Open Sans"
     id: font_small
     size: 12
+
   - file: "gfonts://Open Sans"
     id: font_big
     size: 20
@@ -24,21 +25,29 @@ interval:
 sensor:
   - platform: ecodan
     ecodan_id: ecodan_instance
+
     hot_water_temperature:
       id: hot_water_temp
+
     hot_water_temperature_thw5a:
       id: hot_water_temp_thw5a
+
     compressor_frequency:
       id: compressor_freq
-    primary_flow_rate:
+
+    flow_rate:
       id: flow_rate
-    zone1_flow_temperature:
+
+    boiler_flow_temp:
       id: flow_temp
-    zone1_return_temperature:
+
+    boiler_return_temp:
       id: return_temp
-    zone1_flow_temperature_setpoint:
+
+    z1_flow_temp_target:
       id: setpoint
-    outside_temperature:
+
+    outside_temp:
       id: outdoor_temp
 
 display:
@@ -46,6 +55,7 @@ display:
     model: "SSD1306 128x64"
     address: 0x3C
     update_interval: 7s
+
     lambda: |-
       if (id(oled_page) == 0) {
 
@@ -57,13 +67,13 @@ display:
         );
 
         it.printf(0, 14, id(font_small),
-          "L %.0f Fl %.0f",
+          "Flow %.0f  T %.0f",
           id(flow_rate).state,
           id(flow_temp).state
         );
 
         it.printf(0, 28, id(font_small),
-          "Rt %.0f Sp %.0f",
+          "Ret %.0f  SP %.0f",
           id(return_temp).state,
           id(setpoint).state
         );
@@ -71,6 +81,7 @@ display:
       } else {
 
         it.printf(0, 0, id(font_big), "Valjas:");
+
         it.printf(0, 32, id(font_big),
           "%.0f C",
           id(outdoor_temp).state
