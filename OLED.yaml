@@ -26,13 +26,26 @@ sensor:
   - platform: ecodan
     ecodan_id: ecodan_instance
 
-    hot_water_temperature: hot_water_temp
-    hot_water_temperature_thw5a: hot_water_temp_thw5a
-    compressor_frequency: compressor_freq
-    flow_rate: flow_rate
-    z1_flow_temp_target: setpoint
-    z1_return_temp: return_temp
-    outside_temp: outdoor_temp
+    hot_water_temperature:
+      id: hot_water_temp
+
+    hot_water_temperature_thw5a:
+      id: hot_water_temp_thw5a
+
+    compressor_frequency:
+      id: compressor_freq
+
+    flow_rate:
+      id: flow_rate
+
+    z1_flow_temp_target:
+      id: setpoint
+
+    z1_return_temp:
+      id: return_temp
+
+    outside_temp:
+      id: outdoor_temp
       
 display:
   - platform: ssd1306_i2c
