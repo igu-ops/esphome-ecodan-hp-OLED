@@ -39,17 +39,14 @@ sensor:
       id: flow_rate
 
     z1_flow_temp_target:
-      id: flow_temp
+      id: setpoint
 
     z1_return_temp:
       id: return_temp
 
-    z1_flow_temp_target:
-      id: setpoint
-
     outside_temp:
       id: outdoor_temp
-
+      
 display:
   - platform: ssd1306_i2c
     model: "SSD1306 128x64"
