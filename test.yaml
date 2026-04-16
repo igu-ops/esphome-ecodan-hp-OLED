@@ -13,7 +13,7 @@ font:
 
 display:
   - platform: ssd1306_i2c
-    model: "SSD1106 128x32"
+    model: "SSD1306 128x32"
     address: 0x3C
     external_vcc: false
     lambda: |-
