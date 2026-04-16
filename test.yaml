@@ -1,19 +1,7 @@
 i2c:
-  # sda: 39
-  #  scl: 38
-    scan: true
-  #  sda_pullup_enabled: false
-  #  scl_pullup_enabled: false
-  #  frequency: 50000.0
-
-font:
-  - file: "gfonts://Open Sans"
-    id: font_small
-    size: 12
-
-display:
-  - platform: ssd1306_i2c
-    model: "SSD1306 128x64"
-    address: 0x3C
-    lambda: |-
-      it.print(0, 0, id(font_small), "Hello");
+  sda: 39
+  scl: 38
+  scan: true
+  sda_pullup_enabled: true
+  scl_pullup_enabled: true
+  frequency: 40000  # slower I2C for stability
