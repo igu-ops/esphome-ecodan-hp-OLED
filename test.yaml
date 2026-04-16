@@ -1,6 +1,6 @@
 i2c:
-  sda: 39
-  scl: 38
+  sda: 38
+  scl: 39
   scan: true
   sda_pullup_enabled: true
   scl_pullup_enabled: true
