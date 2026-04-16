@@ -1,6 +1,6 @@
 i2c:
-  sda: 38
-  scl: 39
+  sda: 39
+  scl: 38
   scan: true
   sda_pullup_enabled: true
   scl_pullup_enabled: true
@@ -13,7 +13,7 @@ font:
 
 display:
   - platform: ssd1306_i2c
-    model: "SH1106 128x64"
+    model: "SSD1106 128x32"
     address: 0x3C
     lambda: |-
       it.clear();
