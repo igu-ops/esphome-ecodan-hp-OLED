@@ -6,7 +6,7 @@ i2c:
   scl_pullup_enabled: true
   frequency: 40000  # slower I2C for stability
 
-  font:
+font:
   - file: "gfonts://Open Sans"
     id: font_small
     size: 12
