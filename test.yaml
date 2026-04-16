@@ -1,7 +1,7 @@
 i2c:
   # sda: 39
   #  scl: 38
-  #  scan: true
+    scan: true
   #  sda_pullup_enabled: false
   #  scl_pullup_enabled: false
   #  frequency: 50000.0
