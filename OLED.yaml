@@ -27,7 +27,7 @@ interval:
 display:
   - platform: ssd1306_i2c
     id: oled_display
-    model: "SSD1306 128x64"
+    model: "SSD1306 128x32"
     address: 0x3C
     update_interval: never
     auto_clear_enabled: false
