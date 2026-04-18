@@ -34,12 +34,9 @@ display:
     lambda: |-
       it.clear();
 
-      // =========================
-      // PAGE 1 — SYSTEM (2 LINES)
-      // =========================
       if (id(oled_page) == 0) {
 
-        it.printf(64, 16, id(font_small),
+        it.printf(64, 14, id(font_small),
           TextAlign::CENTER,
           "D%.0f°C S%.0f°C %.0fHz",
           id(dhw_temp).state,
@@ -47,7 +44,7 @@ display:
           id(compressor_frequency).state
         );
 
-        it.printf(64, 32, id(font_small),
+        it.printf(64, 28, id(font_small),
           TextAlign::CENTER,
           "F%.1fL/s R%.0f°C S%.0f°C",
           id(flow_rate).state,
@@ -56,20 +53,12 @@ display:
         );
       }
 
-      // =========================
-      // PAGE 2 — OUTSIDE (BIG 20px)
-      // =========================
       else {
 
-        it.printf(64, 28, id(font_small),
-          TextAlign::CENTER,
-          "Väljas"
-        );
-
         if (id(outside_temp).has_state()) {
-          it.printf(64, 20, id(font_big),
+          it.printf(64, 28, id(font_big),
             TextAlign::CENTER,
-            "%.0f°C",
+            "Väljas: %.0f°C",
             id(outside_temp).state
           );
         } else {
