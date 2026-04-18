@@ -20,7 +20,7 @@ globals:
     initial_value: '0'
 
 interval:
-  - interval: 4s
+  - interval: 3s
     then:
       - lambda: |-
           id(oled_page) = (id(oled_page) + 1) % 2;
