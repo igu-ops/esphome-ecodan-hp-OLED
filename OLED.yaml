@@ -1,6 +1,7 @@
 i2c:
   sda: GPIO38
   scl: GPIO39
+  scan: true
 
 font:
   - file: "gfonts://Open Sans"
