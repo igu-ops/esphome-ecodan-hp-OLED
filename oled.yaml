@@ -59,8 +59,9 @@ display:
         if (id(outside_temp).has_state()) {
           it.printf(64, 18, id(font_big),
             TextAlign::CENTER,
-            "Väljas: %.0f°C",
-            id(outside_temp).state
+            "Väljas: %.0f°C%s",
+            id(outside_temp).state,
+            (id(compressor_frequency).state == 0 ? "?" : "")
           );
         } else {
           it.printf(64, 18, id(font_big),
