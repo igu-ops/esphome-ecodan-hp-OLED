@@ -35,7 +35,6 @@ display:
       it.clear();
 
       if (id(oled_page) == 0) {
-        if (id(dhw_temp).has_state()) {
           
           // Top line
           it.printf(64, 10, id(font_small),
@@ -70,9 +69,5 @@ display:
             );
           }
         }
-      } else {
-        it.printf(64, 18, id(font_big),
-          TextAlign::CENTER,
-          "Ootel"
-        );
+      } 
       }
