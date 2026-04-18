@@ -38,7 +38,7 @@ display:
         if (id(dhw_temp).has_state()) {
           
           // Top line
-          it.printf(64, 8, id(font_small),
+          it.printf(64, 10, id(font_small),
             TextAlign::CENTER,
             "^%.0f°C v%.0f°C %.0fHz",
             id(dhw_secondary_temp).state,
@@ -47,7 +47,7 @@ display:
           );
 
           // Bottom line
-          it.printf(64, 24, id(font_small),
+          it.printf(64, 26, id(font_small),
             TextAlign::CENTER,
             "%.0fL/s F%.0f/%.0f°C R%.0f°C",
             id(flow_rate).state,
@@ -58,20 +58,20 @@ display:
 
         } else {
           if (id(outside_temp).has_state()) {
-            it.printf(64, 16, id(font_big),
+            it.printf(64, 18, id(font_big),
               TextAlign::CENTER,
               "Väljas: %.0f°C",
               id(outside_temp).state
             );
           } else {
-            it.printf(64, 16, id(font_big),
+            it.printf(64, 18, id(font_big),
               TextAlign::CENTER,
               "Väljas: --°C"
             );
           }
         }
       } else {
-        it.printf(64, 16, id(font_big),
+        it.printf(64, 18, id(font_big),
           TextAlign::CENTER,
           "Ootel"
         );
