@@ -4,7 +4,7 @@ i2c:
   scan: true
 
 font:
-  - file: "gfonts://Open Sans"
+  - file: "gfonts://Open Sans" s
     id: font_small
     size: 13
     glyphs: "!\"%()+=,-_.:°/^0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
