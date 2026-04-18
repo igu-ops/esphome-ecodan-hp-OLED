@@ -8,15 +8,13 @@ font:
   - file: "gfonts://Open Sans"
     id: font_small
     size: 14
-    glyphs: >-
-  !"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
 
   - file: "gfonts://Open Sans"
     id: font_big
     size: 22
-    glyphs: >-
-  !"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ
-
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
+    
 globals:
   - id: oled_page
     type: int
