@@ -31,42 +31,41 @@ display:
     address: 0x3C
     update_interval: 1s
 
-    lambda: |-
-      it.clear();
+lambda: |-
+  it.clear();
 
-      if (id(oled_page) == 0) {
-          
-          // Top line
-          it.printf(64, 10, id(font_small),
-            TextAlign::CENTER,
-            "^%.0f°C v%.0f°C %.0fHz",
-            id(dhw_secondary_temp).state,
-            id(dhw_temp).state,
-            id(compressor_frequency).state
-          );
+  if (id(oled_page) == 0) {
+      
+      // Top line
+      it.printf(64, 10, id(font_small),
+        TextAlign::CENTER,
+        "^%.0f°C v%.0f°C %.0fHz",
+        id(dhw_secondary_temp).state,
+        id(dhw_temp).state,
+        id(compressor_frequency).state
+      );
 
-          // Bottom line
-          it.printf(64, 26, id(font_small),
-            TextAlign::CENTER,
-            "%.0fL/s F%.0f/%.0f°C R%.0f°C",
-            id(flow_rate).state,
-            id(z1_feed_temp).state,
-            id(z1_flow_temp_target).state,
-            id(z1_return_temp).state
-          );
+      // Bottom line
+      it.printf(64, 26, id(font_small),
+        TextAlign::CENTER,
+        "%.0fL/s F%.0f/%.0f°C R%.0f°C",
+        id(flow_rate).state,
+        id(z1_feed_temp).state,
+        id(z1_flow_temp_target).state,
+        id(z1_return_temp).state
+      );
 
-        } else {
-          if (id(outside_temp).has_state()) {
-            it.printf(64, 18, id(font_big),
-              TextAlign::CENTER,
-              "Väljas: %.0f°C",
-              id(outside_temp).state
-            );
-          } else {
-            it.printf(64, 18, id(font_big),
-              TextAlign::CENTER,
-              "Väljas: --°C"
-            );
-          }
-        }
-      }
+  } else {
+    if (id(outside_temp).has_state()) {
+      it.printf(64, 18, id(font_big),
+        TextAlign::CENTER,
+        "Väljas: %.0f°C",
+        id(outside_temp).state
+      );
+    } else {
+      it.printf(64, 18, id(font_big),
+        TextAlign::CENTER,
+        "Väljas: --°C"
+      );
+    }
+  }
