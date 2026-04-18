@@ -6,13 +6,13 @@ i2c:
 font:
   - file: "gfonts://Open Sans"
     id: font_small
-    size: 12
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
+    size: 14
+    glyphs: "!\"%()+=,-_.:°/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
   - file: "gfonts://Open Sans"
     id: font_big
-    size: 20
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
+    size: 22
+    glyphs: "!\"%()+=,-_.:°/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
 globals:
   - id: oled_page
@@ -39,17 +39,17 @@ display:
       // =========================
       if (id(oled_page) == 0) {
 
-        it.printf(64, 0, id(font_small),
+        it.printf(64, 16, id(font_small),
           TextAlign::CENTER,
-          "D%.0f° S%.0f° %.0fHz",
+          "D%.0f°C S%.0f°C %.0fHz",
           id(dhw_temp).state,
           id(dhw_secondary_temp).state,
           id(compressor_frequency).state
         );
 
-        it.printf(64, 16, id(font_small),
+        it.printf(64, 32, id(font_small),
           TextAlign::CENTER,
-          "F%.1fL/s R%.0f° S%.0f°",
+          "F%.1fL/s R%.0f°C S%.0f°C",
           id(flow_rate).state,
           id(z1_return_temp).state,
           id(z1_flow_temp_target).state
@@ -61,7 +61,7 @@ display:
       // =========================
       else {
 
-        it.printf(64, 0, id(font_small),
+        it.printf(64, 28, id(font_small),
           TextAlign::CENTER,
           "Väljas"
         );
@@ -73,7 +73,7 @@ display:
             id(outside_temp).state
           );
         } else {
-          it.printf(64, 20, id(font_big),
+          it.printf(64, 28, id(font_big),
             TextAlign::CENTER,
             "--°C"
           );
