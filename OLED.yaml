@@ -1,14 +1,18 @@
 i2c:
-  sda: GPIO38
-  scl: GPIO39
-
+  sda: GPIO39
+  scl: GPIO38
+  scan: true
+  
 font:
   - file: "gfonts://Open Sans"
     id: font_small
     size: 12
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
+
   - file: "gfonts://Open Sans"
     id: font_big
     size: 20
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
 
 globals:
   - id: oled_page
@@ -29,25 +33,52 @@ display:
 
     lambda: |-
       if (id(oled_page) == 0) {
-        it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
-          id(dhw_temp).state,
-          id(dhw_secondary_temp).state,
-          id(compressor_frequency).state
-        );
 
-        it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
-          id(flow_rate).state,
-          id(z1_feed_temp).state
-        );
+        if (id(dhw_temp).has_state() &&
+            id(dhw_secondary_temp).has_state() &&
+            id(compressor_frequency).has_state()) {
 
-        it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
-          id(z1_return_temp).state,
-          id(z1_flow_temp_target).state
-        );
+          it.printf(0, 0, id(font_small),
+            "%.1f°C %.1f°C %.0fHz",
+            id(dhw_temp).state,
+            id(dhw_secondary_temp).state,
+            id(compressor_frequency).state
+          );
+        } else {
+          it.printf(0, 0, id(font_small), "Sensor error");
+        }
 
-      } else {
+        if (id(flow_rate).has_state() &&
+            id(z1_feed_temp).has_state()) {
+
+          it.printf(0, 14, id(font_small),
+            "L %.0f Fl %.0f",
+            id(flow_rate).state,
+            id(z1_feed_temp).state
+          );
+        }
+
+        if (id(z1_return_temp).has_state() &&
+            id(z1_flow_temp_target).has_state()) {
+
+          it.printf(0, 28, id(font_small),
+            "Rt %.0f Sp %.0f",
+            id(z1_return_temp).state,
+            id(z1_flow_temp_target).state
+          );
+        }
+      }
+
+      else {
+
         it.printf(0, 10, id(font_big), "Väljas:");
-        it.printf(0, 35, id(font_big), "%.0f C",
-          id(outside_temp).state
-        );
+
+        if (id(outside_temp).has_state()) {
+          it.printf(0, 35, id(font_big),
+            "%.0f°C",
+            id(outside_temp).state
+          );
+        } else {
+          it.printf(0, 35, id(font_big), "--°C");
+        }
       }
