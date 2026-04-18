@@ -35,54 +35,53 @@ display:
 
     lambda: |-
 
-      it.clear();
+  it.clear();
 
-      // ─────────────────────────────
-      // SAFETY CHECK (IMPORTANT)
-      // ─────────────────────────────
-      if (!id(dhw_temp).has_state() ||
-          !id(outside_temp).has_state()) {
-        it.printf(0, 28, id(font_small), "Waiting for data...");
-        return;
-      }
+  // ─────────────────────────────
+  // SAFETY CHECK
+  // ─────────────────────────────
+  if (!id(dhw_temp).has_state() ||
+      !id(outside_temp).has_state()) {
+    it.printf(0, 28, id(font_small), "Waiting for data...");
+    return;
+  }
 
-      // ─────────────────────────────
-      // PAGE 1 (main telemetry)
-      // ─────────────────────────────
-      if (id(oled_page) == 0) {
+  // ─────────────────────────────
+  // PAGE 1
+  // ─────────────────────────────
+  if (id(oled_page) == 0) {
 
-        it.printf(0, 0, id(font_small),
-          "^%.1f v%.1f %.0fHz",
-          id(dhw_temp).state,
-          id(dhw_secondary_temp).state,
-          id(compressor_frequency).state
-        );
+    it.printf(0, 0, id(font_small),
+      "^%.1f v%.1f %.0fHz",
+      id(dhw_temp).state,
+      id(dhw_secondary_temp).state,
+      id(compressor_frequency).state
+    );
 
-        it.printf(0, 16, id(font_small),
-          "L %.0f Fl%.0f Rt%.0f",
-          id(flow_rate).state,
-          id(z1_flow_temp).state,
-          id(z1_return_temp).state
-        );
+    it.printf(0, 16, id(font_small),
+      "L %.0f Fl%.0f Rt%.0f",
+      id(flow_rate).state,
+      id(z1_feed_temp).state,   // ✔ FIXED
+      id(z1_return_temp).state
+    );
 
-        it.printf(0, 32, id(font_small),
-          "Sp %.0fC",
-          id(z1_flow_temp_target).state
-        );
+    it.printf(0, 32, id(font_small),
+      "Sp %.0fC",
+      id(z1_flow_temp_target).state
+    );
+  }
 
-      }
+  // ─────────────────────────────
+  // PAGE 2
+  // ─────────────────────────────
+  else {
 
-      // ─────────────────────────────
-      // PAGE 2 (outside temp)
-      // ─────────────────────────────
-      else {
+    it.printf(0, 18, id(font_big),
+      "Valjas:"
+    );
 
-        it.printf(0, 18, id(font_big),
-          "Valjas:"
-        );
-
-        it.printf(0, 44, id(font_big),
-          "%.0fC",
-          id(outside_temp).state
-        );
-      }
+    it.printf(0, 44, id(font_big),
+      "%.0fC",
+      id(outside_temp).state
+    );
+  }
