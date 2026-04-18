@@ -31,6 +31,7 @@ packages:
     oled:
       url: https://github.com/igu-ops/esphome-ecodan-hp-OLED/
       ref: main
+      refresh: always
       files:
         - OLED.yaml
 </pre>
