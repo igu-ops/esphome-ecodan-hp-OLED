@@ -4,11 +4,11 @@ i2c:
   scan: true
    
 font:
-  - file: "/config/fonts/DejaVuSans.ttf"
+  - file: "gfonts://DejaVu Sans"
     id: font_small
     size: 13
     glyphs: "!\"%()+=,-_.:°/↑↓0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
-  - file: "/config/fonts/DejaVuSans.ttf"
+  - file: "gfonts://DejaVu Sans"
     id: font_big
     size: 22
     glyphs: "!\"%()+=,-_.:°/↑↓0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
