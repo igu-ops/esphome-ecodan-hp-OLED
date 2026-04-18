@@ -33,5 +33,5 @@ packages:
       ref: main
       refresh: always
       files:
-        - OLED.yaml
+        - oled.yaml
 </pre>
