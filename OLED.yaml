@@ -36,9 +36,6 @@ display:
 
       if (id(oled_page) == 0) {
 
-it.clear();
-
-if (id(oled_page) == 0) {
 
   // Top line: DHW temps + compressor frequency
   it.printf(64, 14, id(font_small),
