@@ -4,13 +4,15 @@ i2c:
   scan: true
 
 font:
-  - file: "/config/fonts/DejaVuSans.ttf"
+  - file: "gfonts://Roboto"
     id: font_small
     size: 10
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
-  - file: "/config/fonts/DejaVuSans.ttf"
+  - file: "gfonts://Roboto"
     id: font_big
-    size: 18
+    size: 14
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
 globals:
   - id: oled_page
@@ -55,13 +57,23 @@ display:
       }
 
       // =========================
-      // PAGE 2 — OUTSIDE (BIG FIXED)
+      // PAGE 2 — OUTSIDE TEMP
       // =========================
       else {
 
-        it.printf(64, 16, id(font_big),
-          TextAlign::CENTER,
-          "Väljas: %.0f°C",
-          id(outside_temp).state
-        );
+        if (id(outside_temp).has_state()) {
+
+          it.printf(64, 16, id(font_big),
+            TextAlign::CENTER,
+            "Väljas: %.0f°C",
+            id(outside_temp).state
+          );
+
+        } else {
+
+          it.printf(64, 16, id(font_big),
+            TextAlign::CENTER,
+            "Väljas: --°C"
+          );
+        }
       }
