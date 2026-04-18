@@ -1,3 +1,8 @@
+i2c:
+  sda: 39
+  scl: 38
+  scan: true
+
 display:
   - platform: ssd1306_i2c
     id: oled_display
