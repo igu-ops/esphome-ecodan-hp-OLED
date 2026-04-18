@@ -1,8 +1,17 @@
 i2c:
-  sda: GPIO39
-  scl: GPIO38
-  scan: true
-  frequency: 100kHz
+  sda: GPIO38
+  scl: GPIO39
+
+font:
+  - file: "gfonts://Open Sans"
+    id: font_small
+    size: 12
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
+
+  - file: "gfonts://Open Sans"
+    id: font_big
+    size: 20
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
 
 globals:
   - id: oled_page
@@ -10,78 +19,65 @@ globals:
     initial_value: '0'
 
 interval:
-  - interval: 3s
+  - interval: 5s
     then:
       - lambda: |-
           id(oled_page) = (id(oled_page) + 1) % 2;
-      - component.update: oled_display
-
-font:
-  - file: "gfonts://Open Sans"
-    id: font_small
-    size: 11
-
-  - file: "gfonts://Open Sans"
-    id: font_big
-    size: 22
 
 display:
   - platform: ssd1306_i2c
-    id: oled_display
     model: "SSD1306 128x64"
     address: 0x3C
-    update_interval: never
-    auto_clear_enabled: false
+    update_interval: 1s
 
     lambda: |-
+      if (id(oled_page) == 0) {
 
-  it.clear();
+        if (id(dhw_temp).has_state() &&
+            id(dhw_secondary_temp).has_state() &&
+            id(compressor_frequency).has_state()) {
 
-  // ─────────────────────────────
-  // SAFETY CHECK
-  // ─────────────────────────────
-  if (!id(dhw_temp).has_state() ||
-      !id(outside_temp).has_state()) {
-    it.printf(0, 28, id(font_small), "Waiting for data...");
-    return;
-  }
+          it.printf(0, 0, id(font_small),
+            "%.1f°C %.1f°C %.0fHz",
+            id(dhw_temp).state,
+            id(dhw_secondary_temp).state,
+            id(compressor_frequency).state
+          );
+        } else {
+          it.printf(0, 0, id(font_small), "Sensor error");
+        }
 
-  // ─────────────────────────────
-  // PAGE 1
-  // ─────────────────────────────
-  if (id(oled_page) == 0) {
+        if (id(flow_rate).has_state() &&
+            id(z1_feed_temp).has_state()) {
 
-    it.printf(0, 0, id(font_small),
-      "^%.1f v%.1f %.0fHz",
-      id(dhw_temp).state,
-      id(dhw_secondary_temp).state,
-      id(compressor_frequency).state
-    );
+          it.printf(0, 14, id(font_small),
+            "L %.0f Fl %.0f",
+            id(flow_rate).state,
+            id(z1_feed_temp).state
+          );
+        }
 
-    it.printf(0, 16, id(font_small),
-      "L %.0f Fl%.0f Rt%.0f",
-      id(flow_rate).state,
-      id(z1_feed_temp).state,   // ✔ FIXED
-      id(z1_return_temp).state
-    );
+        if (id(z1_return_temp).has_state() &&
+            id(z1_flow_temp_target).has_state()) {
 
-    it.printf(0, 32, id(font_small),
-      "Sp %.0fC",
-      id(z1_flow_temp_target).state
-    );
-  }
+          it.printf(0, 28, id(font_small),
+            "Rt %.0f Sp %.0f",
+            id(z1_return_temp).state,
+            id(z1_flow_temp_target).state
+          );
+        }
+      }
 
-  // ─────────────────────────────
-  // PAGE 2
-  // ─────────────────────────────
-  else {
+      else {
 
-    it.printf(0, 18, id(font_big),
-      "Valjas:"
-    );
+        it.printf(0, 10, id(font_big), "Väljas:");
 
-    it.printf(0, 44, id(font_big),
-      "%.0fC",
-      id(outside_temp).state
-    );
-  }
+        if (id(outside_temp).has_state()) {
+          it.printf(0, 35, id(font_big),
+            "%.0f°C",
+            id(outside_temp).state
+          );
+        } else {
+          it.printf(0, 35, id(font_big), "--°C");
+        }
+      }
