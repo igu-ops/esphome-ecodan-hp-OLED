@@ -1,32 +1,3 @@
-i2c:
-  sda: 39
-  scl: 38
-  scan: true
-  frequency: 100kHz
-
-font:
-  - file: "gfonts://Open Sans"
-    id: font_small
-    size: 14
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
-
-  - file: "gfonts://Open Sans"
-    id: font_big
-    size: 22
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
-    
-globals:
-  - id: oled_page
-    type: int
-    initial_value: '0'
-
-interval:
-  - interval: 5s
-    then:
-      - lambda: |-
-          id(oled_page) = (id(oled_page) + 1) % 2;
-      - component.update: oled_display
-
 display:
   - platform: ssd1306_i2c
     id: oled_display
@@ -34,37 +5,53 @@ display:
     address: 0x3C
     update_interval: never
     auto_clear_enabled: false
+
     lambda: |-
       it.clear();
 
       if (!id(dhw_temp).has_state()) {
-        it.printf(0, 0, id(font_small), "Ootel...");
+        it.printf(64, 16, id(font_big), TextAlign::CENTER, "Ootel...");
         return;
       }
 
       if (id(oled_page) == 0) {
 
-        it.printf(0, 0, id(font_small), "%.1f %.1f %.0fHz",
+        char buf[40];
+        snprintf(buf, sizeof(buf), "%.1f\xC2\xB0C  %.0fHz",
           id(dhw_temp).state,
-          id(dhw_secondary_temp).state,
           id(compressor_frequency).state
         );
+        it.printf(64, 10, id(font_big), TextAlign::CENTER, buf);
 
-        it.printf(0, 14, id(font_small), "L %.0f Fl %.0f",
+        snprintf(buf, sizeof(buf), "L %.0f  R %.0f\xC2\xB0C",
           id(flow_rate).state,
+          id(z1_return_temp).state
+        );
+        it.printf(64, 28, id(font_small), TextAlign::CENTER, buf);
+      }
+
+      else if (id(oled_page) == 1) {
+
+        char buf[40];
+        snprintf(buf, sizeof(buf), "Feed %.0f\xC2\xB0C",
           id(z1_feed_temp).state
         );
+        it.printf(64, 10, id(font_big), TextAlign::CENTER, buf);
 
-        it.printf(0, 28, id(font_small), "Rt %.0f Sp %.0f",
-          id(z1_return_temp).state,
+        snprintf(buf, sizeof(buf), "Sp %.0f\xC2\xB0C",
           id(z1_flow_temp_target).state
         );
+        it.printf(64, 28, id(font_small), TextAlign::CENTER, buf);
+      }
 
-      } else {
+      else {
 
-        it.printf(0, 10, id(font_big), "Väljas:");
-        it.printf(0, 35, id(font_big), "%.0fC",
+        char buf[40];
+        snprintf(buf, sizeof(buf), "Väljas");
+        it.printf(64, 0, id(font_big), TextAlign::CENTER, buf);
+
+        snprintf(buf, sizeof(buf), "%.0f\xC2\xB0C",
           id(outside_temp).state
         );
-
+        it.printf(64, 18, id(font_big), TextAlign::CENTER, buf);
       }
