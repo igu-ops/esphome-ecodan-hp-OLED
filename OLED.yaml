@@ -2,7 +2,7 @@ i2c:
   sda: GPIO39
   scl: GPIO38
   scan: true
-  
+
 font:
   - file: "gfonts://Open Sans"
     id: font_small
@@ -27,13 +27,19 @@ interval:
 
 display:
   - platform: ssd1306_i2c
-    model: "SSD1306 128x64"
+    model: "SSD1306 128x32"
     address: 0x3C
     update_interval: 1s
 
     lambda: |-
+      it.clear();
+
+      // =========================
+      // PAGE 1 — SYSTEM (2 LINES)
+      // =========================
       if (id(oled_page) == 0) {
 
+        // Line 1: temps + compressor
         if (id(dhw_temp).has_state() &&
             id(dhw_secondary_temp).has_state() &&
             id(compressor_frequency).has_state()) {
@@ -48,37 +54,37 @@ display:
           it.printf(0, 0, id(font_small), "Sensor error");
         }
 
+        // Line 2: flow + zone temps
         if (id(flow_rate).has_state() &&
-            id(z1_feed_temp).has_state()) {
-
-          it.printf(0, 14, id(font_small),
-            "L %.0f Fl %.0f",
-            id(flow_rate).state,
-            id(z1_feed_temp).state
-          );
-        }
-
-        if (id(z1_return_temp).has_state() &&
+            id(z1_feed_temp).has_state() &&
+            id(z1_return_temp).has_state() &&
             id(z1_flow_temp_target).has_state()) {
 
-          it.printf(0, 28, id(font_small),
-            "Rt %.0f Sp %.0f",
+          it.printf(0, 16, id(font_small),
+            "F%.0f L%.0f R%.0f S%.0f",
+            id(flow_rate).state,
+            id(z1_feed_temp).state,
             id(z1_return_temp).state,
             id(z1_flow_temp_target).state
           );
         }
       }
 
+      // =========================
+      // PAGE 2 — OUTSIDE (BIG)
+      // =========================
       else {
 
-        it.printf(0, 10, id(font_big), "Väljas:");
-
         if (id(outside_temp).has_state()) {
-          it.printf(0, 35, id(font_big),
+          it.printf(64, 16, id(font_big),
+            TextAlign::CENTER,
             "%.0f°C",
             id(outside_temp).state
           );
         } else {
-          it.printf(0, 35, id(font_big), "--°C");
+          it.printf(64, 16, id(font_big),
+            TextAlign::CENTER,
+            "--°C"
+          );
         }
       }
