@@ -35,7 +35,7 @@ display:
       it.clear();
 
       if (!id(dhw_temp).has_state()) {
-        it.printf(0, 0, id(font_small), "Waiting for data...");
+        it.printf(0, 0, id(font_small), "Ootel...");
         return;
       }
 
@@ -59,7 +59,7 @@ display:
 
       } else {
 
-        it.printf(0, 10, id(font_big), "Valjas:");
+        it.printf(0, 10, id(font_big), "Väljas:");
         it.printf(0, 35, id(font_big), "%.0fC",
           id(outside_temp).state
         );
