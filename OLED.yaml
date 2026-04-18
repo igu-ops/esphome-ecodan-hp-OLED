@@ -4,14 +4,14 @@ i2c:
   scan: true
 
 font:
-  - file: "gfonts://Roboto"
+  - file: "gfonts://Open Sans"
     id: font_small
-    size: 10
+    size: 12
     glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
-  - file: "gfonts://Roboto"
+  - file: "gfonts://Open Sans"
     id: font_big
-    size: 14
+    size: 20
     glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
 globals:
@@ -35,11 +35,11 @@ display:
       it.clear();
 
       // =========================
-      // PAGE 1 — SYSTEM
+      // PAGE 1 — SYSTEM (2 LINES)
       // =========================
       if (id(oled_page) == 0) {
 
-        it.printf(64, 10, id(font_small),
+        it.printf(64, 0, id(font_small),
           TextAlign::CENTER,
           "D%.0f° S%.0f° %.0fHz",
           id(dhw_temp).state,
@@ -47,9 +47,9 @@ display:
           id(compressor_frequency).state
         );
 
-        it.printf(64, 22, id(font_small),
+        it.printf(64, 16, id(font_small),
           TextAlign::CENTER,
-          "F%.1f L/s R%.0f° S%.0f°",
+          "F%.1fL/s R%.0f° S%.0f°",
           id(flow_rate).state,
           id(z1_return_temp).state,
           id(z1_flow_temp_target).state
@@ -57,23 +57,25 @@ display:
       }
 
       // =========================
-      // PAGE 2 — OUTSIDE TEMP
+      // PAGE 2 — OUTSIDE (BIG 20px)
       // =========================
       else {
 
-        if (id(outside_temp).has_state()) {
+        it.printf(64, 0, id(font_small),
+          TextAlign::CENTER,
+          "Väljas"
+        );
 
-          it.printf(64, 16, id(font_big),
+        if (id(outside_temp).has_state()) {
+          it.printf(64, 20, id(font_big),
             TextAlign::CENTER,
-            "Väljas: %.0f°C",
+            "%.0f°C",
             id(outside_temp).state
           );
-
         } else {
-
-          it.printf(64, 16, id(font_big),
+          it.printf(64, 20, id(font_big),
             TextAlign::CENTER,
-            "Väljas: --°C"
+            "--°C"
           );
         }
       }
