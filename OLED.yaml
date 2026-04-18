@@ -41,8 +41,8 @@ display:
       it.printf(64, 8, id(font_small),
         TextAlign::CENTER,
         "^%.0f°C v%.0f°C %.0fHz",
-        id(dhw_temp).state,
         id(dhw_secondary_temp).state,
+        id(dhw_temp).state,
         id(compressor_frequency).state
       );
 
