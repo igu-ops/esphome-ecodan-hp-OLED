@@ -7,12 +7,12 @@ font:
   - file: "gfonts://Open Sans"
     id: font_small2
     size: 13
-    glyphs: "!\"%()+=,-_.:°/↑↓0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
+    glyphs: "!\"%()+=,-_.:°/^0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
 
   - file: "gfonts://Open Sans"
     id: font_big2
     size: 22
-    glyphs: "!\"%()+=,-_.:°/↑↓0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
+    glyphs: "!\"%()+=,-_.:°/^0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ "
     
 font:
   - file: "/config/fonts/DejaVuSans.ttf"
