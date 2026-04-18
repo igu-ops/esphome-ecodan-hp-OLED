@@ -4,15 +4,13 @@ i2c:
   scan: true
 
 font:
-  - file: "gfonts://Open Sans"
+  - file: "gfonts://Roboto Mono"
     id: font_small
     size: 10
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
 
-  - file: "gfonts://Open Sans"
+  - file: "gfonts://Roboto Mono"
     id: font_big
     size: 14
-    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
 
 globals:
   - id: oled_page
@@ -35,63 +33,35 @@ display:
       it.clear();
 
       // =========================
-      // PAGE 1 — SYSTEM (2 LINES)
+      // PAGE 1
       // =========================
       if (id(oled_page) == 0) {
 
-        // LINE 1
-        if (id(dhw_temp).has_state() &&
-            id(dhw_secondary_temp).has_state() &&
-            id(compressor_frequency).has_state()) {
+        it.printf(64, 10, id(font_small),
+          TextAlign::CENTER,
+          "D%.0f S%.0f %.0fHz",
+          id(dhw_temp).state,
+          id(dhw_secondary_temp).state,
+          id(compressor_frequency).state
+        );
 
-          it.printf(64, 0, id(font_small),
-            TextAlign::CENTER,
-            "D%.0f S%.0f %.0fHz",
-            id(dhw_temp).state,
-            id(dhw_secondary_temp).state,
-            id(compressor_frequency).state
-          );
-
-        } else {
-          it.printf(64, 0, id(font_small),
-            TextAlign::CENTER,
-            "Ootel"
-          );
-        }
-
-        // LINE 2
-        if (id(flow_rate).has_state() &&
-            id(z1_return_temp).has_state() &&
-            id(z1_flow_temp_target).has_state()) {
-
-          it.printf(64, 16, id(font_small),
-            TextAlign::CENTER,
-            "F%.1fL/s R%.0f S%.0f",
-            id(flow_rate).state,
-            id(z1_return_temp).state,
-            id(z1_flow_temp_target).state
-          );
-        }
+        it.printf(64, 22, id(font_small),
+          TextAlign::CENTER,
+          "F%.1fL/s R%.0f S%.0f",
+          id(flow_rate).state,
+          id(z1_return_temp).state,
+          id(z1_flow_temp_target).state
+        );
       }
 
       // =========================
-      // PAGE 2 — OUTSIDE (1 LINE ONLY)
+      // PAGE 2
       // =========================
       else {
 
-        if (id(outside_temp).has_state()) {
-
-          it.printf(64, 16, id(font_big),
-            TextAlign::CENTER,
-            "Väljas: %.0f°C",
-            id(outside_temp).state
-          );
-
-        } else {
-
-          it.printf(64, 16, id(font_big),
-            TextAlign::CENTER,
-            "Väljas: --°C"
-          );
-        }
+        it.printf(64, 10, id(font_big),
+          TextAlign::CENTER,
+          "Väljas: %.0f°C",
+          id(outside_temp).state
+        );
       }
