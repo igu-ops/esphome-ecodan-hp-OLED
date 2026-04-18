@@ -1,7 +1,32 @@
+
 i2c:
   sda: 39
   scl: 38
   scan: true
+  frequency: 100kHz
+
+globals:
+  - id: oled_page
+    type: int
+    initial_value: '0'
+
+font:
+  - file: "gfonts://Open Sans"
+    id: font_small
+    size: 14
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
+
+  - file: "gfonts://Open Sans"
+    id: font_big
+    size: 22
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzäöüõÄÖÜÕ"
+
+interval:
+  - interval: 5s
+    then:
+      - lambda: |-
+          id(oled_page) = (id(oled_page) + 1) % 3;
+      - component.update: oled_display
 
 display:
   - platform: ssd1306_i2c
@@ -10,6 +35,7 @@ display:
     address: 0x3C
     update_interval: never
     auto_clear_enabled: false
+    flip_x: true
 
     lambda: |-
       it.clear();
@@ -19,44 +45,53 @@ display:
         return;
       }
 
+      // PAGE 0 — main system
       if (id(oled_page) == 0) {
 
         char buf[40];
-        snprintf(buf, sizeof(buf), "%.1f\xC2\xB0C  %.0fHz",
+        snprintf(buf, sizeof(buf), "%.1f°C %.0fHz",
           id(dhw_temp).state,
           id(compressor_frequency).state
         );
+
         it.printf(64, 10, id(font_big), TextAlign::CENTER, buf);
 
-        snprintf(buf, sizeof(buf), "L %.0f  R %.0f\xC2\xB0C",
+        snprintf(buf, sizeof(buf), "L %.0f R %.0f°C",
           id(flow_rate).state,
           id(z1_return_temp).state
         );
+
         it.printf(64, 28, id(font_small), TextAlign::CENTER, buf);
       }
 
+      // PAGE 1 — zone temps
       else if (id(oled_page) == 1) {
 
         char buf[40];
-        snprintf(buf, sizeof(buf), "Feed %.0f\xC2\xB0C",
+        snprintf(buf, sizeof(buf), "Feed %.0f°C",
           id(z1_feed_temp).state
         );
+
         it.printf(64, 10, id(font_big), TextAlign::CENTER, buf);
 
-        snprintf(buf, sizeof(buf), "Sp %.0f\xC2\xB0C",
+        snprintf(buf, sizeof(buf), "Sp %.0f°C",
           id(z1_flow_temp_target).state
         );
+
         it.printf(64, 28, id(font_small), TextAlign::CENTER, buf);
       }
 
+      // PAGE 2 — outside
       else {
 
         char buf[40];
         snprintf(buf, sizeof(buf), "Väljas");
+
         it.printf(64, 0, id(font_big), TextAlign::CENTER, buf);
 
-        snprintf(buf, sizeof(buf), "%.0f\xC2\xB0C",
+        snprintf(buf, sizeof(buf), "%.0f°C",
           id(outside_temp).state
         );
+
         it.printf(64, 18, id(font_big), TextAlign::CENTER, buf);
       }
