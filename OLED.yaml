@@ -49,7 +49,7 @@ display:
           TextAlign::CENTER,
           "F%.1fL/s Z1%.0f°C R%.0f°C T%.0f°C",
           id(flow_rate).state,
-          id(z1_flow_temp).state,
+          id(z1_feed_temp).state,
           id(z1_return_temp).state,
           id(z1_flow_temp_target).state
         );
