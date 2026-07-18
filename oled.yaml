@@ -45,7 +45,7 @@ display:
             id(compressor_frequency).state
 
                       // IN1 status indicator
-          if (id(ecodan_in1).state) {
+         (id(ecodan_in1).state) {
             it.print(1, 10, id(font_small), "X");
           } else {
             it.print(1, 10, id(font_small), "O");
