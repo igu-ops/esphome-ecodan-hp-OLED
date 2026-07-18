@@ -47,9 +47,9 @@ display:
 
           // IN1 status indicator
           if (id(ecodan_in1).state) {
-            it.print(120, 10, id(font_small), "●");
+            it.print(1, 10, id(font_small), "O");
           } else {
-            it.print(120, 10, id(font_small), "○");
+            it.print(1, 10, id(font_small), "X");
           }
 
           // Bottom line
