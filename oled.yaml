@@ -39,17 +39,20 @@ display:
           // Top line
           it.printf(64, 10, id(font_small),
             TextAlign::CENTER,
+            it.printf(64, 10, id(font_small),
+  TextAlign::CENTER,
+  "^%.0f°C v%.0f°C %.0fHz %s%s",
+  id(dhw_secondary_temp).state,
+  id(dhw_temp).state,
+  id(compressor_frequency).state,
+  (id(ecodan_in1).state ? "X" : "O"),
+  (id(compressor_frequency).state == 0 ? "?" : "")
+);
             "^%.0f°C v%.0f°C %.0fHz",
             id(dhw_secondary_temp).state,
             id(dhw_temp).state,
             id(compressor_frequency).state
 
-                      // IN1 status indicator
-         (id(ecodan_in1).state) {
-            it.print(1, 10, id(font_small), "X");
-          } else {
-            it.print(1, 10, id(font_small), "O");
-          }
           );
 
 
