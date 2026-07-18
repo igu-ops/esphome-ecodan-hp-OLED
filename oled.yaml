@@ -40,7 +40,7 @@ display:
         it.printf(64, 10, id(font_small),
           TextAlign::CENTER,
           "%s ^%.0f°C v%.0f°C %.0fHz",
-          (id(ecodan_in1).state ? "X" : "O"),
+          (id(asgard_relay_z1).state ? "X" : "O"),
           id(dhw_secondary_temp).state,
           id(dhw_temp).state,
           id(compressor_frequency).state
