@@ -43,14 +43,16 @@ display:
             id(dhw_secondary_temp).state,
             id(dhw_temp).state,
             id(compressor_frequency).state
-          );
 
-          // IN1 status indicator
+                      // IN1 status indicator
           if (id(ecodan_in1).state) {
             it.print(1, 10, id(font_small), "X");
           } else {
             it.print(1, 10, id(font_small), "O");
           }
+          );
+
+
 
           // Bottom line
           it.printf(64, 26, id(font_small),
