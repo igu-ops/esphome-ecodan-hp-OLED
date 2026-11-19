@@ -1,7 +1,7 @@
 <h2>OLED SSD1306 Support for ATOM S3 Lite</h2>
 
 <p>
-Testing integration of an OLED SSD1306 display with the ATOM S3 Lite for:<br>
+Integration of an OLED SSD1306 display with the ATOM S3 Lite for:<br>
 <a href="https://github.com/gekkekoe/esphome-ecodan-hp">
 https://github.com/gekkekoe/esphome-ecodan-hp
 </a>
